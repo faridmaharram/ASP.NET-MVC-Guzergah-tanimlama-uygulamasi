@@ -1,0 +1,139 @@
+﻿@model BusApp.UI.Areas.Admin.Models.StationViewModel.StationViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+}
+
+<script src="~/Areas/Admin/js/bootbox.min (1).js"></script>
+
+@Html.Raw(TempData["Ekle"])
+@Html.Raw(TempData["Sil"])
+@Html.Raw(TempData["Duzenle"])
+@using (Html.BeginForm("Durak", "DurakTanimlama")) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Station.STATION_NAME, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Station.STATION_NAME, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Station.STATION_NAME, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Station.ROUTE_ID, "ROUTE_ID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("ROUTE_ID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Station.ROUTE_ID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Station.STATION_NO, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Station.STATION_NO, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Station.STATION_NO, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Station.ARRIVAL_TIME, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Station.ARRIVAL_TIME, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Station.ARRIVAL_TIME, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Station.DEPARTURE_TIME, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Station.DEPARTURE_TIME, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Station.DEPARTURE_TIME, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Ekle" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<table class="table">
+    <tr>
+        <th>
+
+            Şehir
+        </th>
+        <th>
+
+            Güzergah Tipi
+        </th>
+        <th>
+
+            Güzergah
+        </th>
+        <th>
+
+            Durak İsmi
+        </th>
+        <th>
+
+            Durak No
+        </th>
+        <th>
+
+            Varış Saati
+        </th>
+        <th>
+
+            Kalkış Saati
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Stations)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ROUTE.CITY.CITY_NAME)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.ROUTE.ROUTE_TYPE.ROUTE_TYPE_NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ROUTE.ROUTE_NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.STATION_NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.STATION_NO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ARRIVAL_TIME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DEPARTURE_TIME)
+            </td>
+
+            <td>
+                <a href="@Url.Action("Duzenle", new { id= item.STATION_ID })" class="btn btn-success">Duzenle</a>
+
+                <a href="@Url.Action("Sil", new { id = item.STATION_ID })" class="btn btn-danger">Sil</a>
+
+            </td>
+        </tr>
+    }
+
+</table>

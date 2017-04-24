@@ -1,0 +1,187 @@
+﻿@model BusWeb.UI.Class.AllViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://code.jquery.com/jquery-3.2.1.js"
+        integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+        crossorigin="anonymous"></script>
+<script type="text/javascript">
+
+    $(function(){
+
+        $.getJSON("/Home/CityList",function(data){
+
+            var items = "<option>--Şehir--</option>";
+            $.each(data, function (i,city){
+
+                items+="<option value='"+city.ID+"'>"+city.NAME+"</option>";
+
+            }  );
+            $("#City").html(items);
+            
+
+        });
+
+        $.getJSON("/Home/RouteTypeList", function (data) {
+
+            var items = "<option>--Güzergah Tipi--</option>";
+            $.each(data, function (i, routetype) {
+
+                items += "<option value='" + routetype.ID + "'>" + routetype.NAME + "</option>";
+
+            });
+            $("#RouteType").html(items);
+
+
+        });
+
+        $("#City").change(function(){
+            $.getJSON("/Home/RouteList/"+$("#City > option:selected").attr("value"),function(data){
+              
+                var items = "<option>--Güzergah--</option>";
+                $.each(data, function (i, route) {
+
+                    items += "<option value='" + route.ID + "'>" + route.NAME + "</option>";
+
+                });
+
+                $("#Route").html(items);
+            });
+
+        });
+
+      
+
+        $("#Route").change(function () {
+            $.getJSON("/Home/StationList/" + $("#Route > option:selected").attr("value"), function (data) {
+
+                var items = "<option>--Durak--</option>";
+                $.each(data, function (i, station) {
+
+                    items += "<option value='" + station.ID + "'>" + station.NAME + "</option>";
+
+                });
+
+                $("#Station").html(items);
+            });
+
+        });
+    });
+</script>
+<br />
+
+<a href="/Account/Login/" class="btn btn-primary pull-right">Sistem Yönetici Girişi</a>
+<h2>PERSONEL SERVİSLERİ<br/>
+GÜZERGAH TANIMLAMA<br /> VE SORGULAMA
+UYGULAMASI</h2>
+<br />
+@using (Html.BeginForm())
+{
+    
+    <br />
+    <select class="form-control" id="City" name="City"></select>
+    <br />
+    <br />
+    <select class="form-control" id="RouteType" name="RouteType"></select>
+    <br />
+    <br />
+    <select class="form-control" id="Route" name="Route"></select>
+    <br />
+    <br />
+
+    <select class="form-control" id="Station" name="Station"></select>
+    <br />
+   
+    <br/>
+    <input class="btn btn-default" type="submit" value="Filtirele" />
+}
+<br/>
+
+
+
+
+<table class="table table-bordered">
+    <tr>
+        <th>
+
+            Şehir
+        </th>
+        <th>
+
+            Güzergah Tipi
+        </th>
+        <th>
+
+            Güzergah
+        </th>
+        <th>
+
+            Toplam Süre
+        </th>
+        <th>
+
+            Peron No
+        </th>
+        <th>
+
+            Servis Aracı
+        </th>
+        <th>
+            Durak Adı
+        </th>
+        <th>
+
+            Durak No
+        </th>
+        <th>
+
+            Kalkış Saati
+        </th>
+
+        <th>Varış Saati</th>
+    </tr>
+
+    @foreach (var item in Model.Stations)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ROUTE.CITY.CITY_NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ROUTE.ROUTE_TYPE.ROUTE_TYPE_NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ROUTE.ROUTE_NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ROUTE.TOT_DURATION)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ROUTE.PERON_NO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ROUTE.VEHICLE_TYPE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.STATION_NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.STATION_NO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ARRIVAL_TIME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DEPARTURE_TIME)
+            </td>
+
+           
+        </tr>
+    }
+
+</table>
+<br />
+<input type="button" class="btn btn-primary" value="Yazıcıya Gönder" onclick="window.print()">
+<br />

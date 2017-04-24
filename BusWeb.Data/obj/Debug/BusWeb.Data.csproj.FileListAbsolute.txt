@@ -1,0 +1,10 @@
+C:\Users\Ferid\Desktop\BusWeb\BusWeb.Data\bin\Debug\BusWeb.Data.dll.config
+C:\Users\Ferid\Desktop\BusWeb\BusWeb.Data\bin\Debug\BusWeb.Data.dll
+C:\Users\Ferid\Desktop\BusWeb\BusWeb.Data\bin\Debug\BusWeb.Data.pdb
+C:\Users\Ferid\Desktop\BusWeb\BusWeb.Data\bin\Debug\EntityFramework.dll
+C:\Users\Ferid\Desktop\BusWeb\BusWeb.Data\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Ferid\Desktop\BusWeb\BusWeb.Data\bin\Debug\EntityFramework.xml
+C:\Users\Ferid\Desktop\BusWeb\BusWeb.Data\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Ferid\Desktop\BusWeb\BusWeb.Data\obj\Debug\BusWeb.Data.dll
+C:\Users\Ferid\Desktop\BusWeb\BusWeb.Data\obj\Debug\BusWeb.Data.pdb
+C:\Users\Ferid\Desktop\BusWeb\BusWeb.Data\obj\Debug\BusWeb.Data.csprojResolveAssemblyReference.cache

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<BusWeb.Data.Model.STATION>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+@using (Html.BeginForm())
+{
+   
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><a href="/Admin/DurakTanimlama/Index/">Duraklar</a> </td>
+                <td><a href="@Url.Action( "ExportToExcelStation")" class="btn btn-default"><i class="fa fa-file-excel-o" aria-hidden="true"></i>  Excele Aktar</a></td>
+
+            </tr>
+            <tr>
+                <td><a href="/Admin/GuzergahTanimlama/Index/">Guzergahlar</a></td>
+                <td><a href="@Url.Action( "ExportToExcelRoute")" class="btn btn-default"><i class="fa fa-file-excel-o" aria-hidden="true"></i>  Excele Aktar</a></td>
+               
+            </tr>
+            <tr>
+                <td><a href="/Admin/GuzergahTipiTanimlama/Index/">Guzergah Tipleri</a> </td>
+                <td><a href="@Url.Action( "ExportToExcelRouteType")" class="btn btn-default"><i class="fa fa-file-excel-o" aria-hidden="true"></i>  Excele Aktar</a></td>
+
+            </tr>
+            <tr>
+                <td><a href="/Admin/SehirTanimlama/Index/">Şehirler</a></td>
+                <td><a href="@Url.Action( "ExportToExcelCity")" class="btn btn-default"><i class="fa fa-file-excel-o" aria-hidden="true"></i>  Excele Aktar</a></td>
+
+            </tr>
+        </tbody>
+    </table>
+    
+}

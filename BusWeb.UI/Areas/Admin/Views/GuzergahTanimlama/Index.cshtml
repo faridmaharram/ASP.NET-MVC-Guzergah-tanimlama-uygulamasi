@@ -1,0 +1,143 @@
+﻿@model BusApp.UI.Areas.Admin.Models.RouterViewModel.RouterViewModel
+
+@{
+    ViewBag.Title = "Index";
+ 
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<script src="~/Areas/Admin/js/bootbox.min (1).js"></script>
+
+@Html.Raw(TempData["Ekle"])
+@Html.Raw(TempData["Sil"])
+@Html.Raw(TempData["Duzenle"])
+
+@using (Html.BeginForm("Guzergah", "GuzergahTanimlama")) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+       
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+       
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Route.CITY_ID, "CITY_ID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("CITY_ID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Route.CITY_ID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Route.ROUTE_TYPE_ID, "ROUTE_TYPE_ID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("ROUTE_TYPE_ID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Route.ROUTE_TYPE_ID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Route.VEHICLE_TYPE, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+               
+                @Html.EditorFor(model => model.Route.VEHICLE_TYPE, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Route.VEHICLE_TYPE, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Route.ROUTE_NAME, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+
+                @Html.EditorFor(model => model.Route.ROUTE_NAME, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Route.ROUTE_NAME, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+         <div class="form-group">
+            @Html.LabelFor(model => model.Route.TOT_DURATION, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Route.TOT_DURATION, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Route.TOT_DURATION, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Route.PERON_NO, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Route.PERON_NO, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Route.PERON_NO, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+       
+       
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<table class="table">
+    <tr>
+        <th>
+
+            Şehir
+        </th>
+        <th>
+
+            Güzergah Tipi
+        </th>
+        <th>
+
+            Güzergah
+        </th>
+        <th>
+
+            Toplam Süre
+        </th>
+        <th>
+
+            Peron No
+        </th>
+        <th>
+
+            Servis Aracı
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Routes)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CITY.CITY_NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ROUTE_TYPE.ROUTE_TYPE_NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ROUTE_NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TOT_DURATION)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PERON_NO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VEHICLE_TYPE)
+            </td>
+
+            <td>
+                <a href="@Url.Action("Duzenle", new { id= item.ROUTE_ID })" class="btn btn-success">Duzenle</a>
+
+                <a href="@Url.Action("Sil", new { id = item.ROUTE_ID })" class="btn btn-danger">Sil</a>
+
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,54 @@
+﻿@model BusApp.UI.Areas.Admin.Models.CityViewModels.CityViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<script src="~/Areas/Admin/js/bootbox.min (1).js"></script>
+    
+@Html.Raw(TempData["Ekle"])
+@Html.Raw(TempData["Sil"])
+@Html.Raw(TempData["Duzenle"])
+
+<h2>Şehir Ekle</h2>
+@using (Html.BeginForm("Sehir", "SehirTanimlama"))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.TextBoxFor(x => x.City.CITY_NAME, new { @class = "form-control" })
+    </div>
+    <input type="submit" class="btn btn-success" />
+
+}
+
+
+
+<table class="table">
+    <tr>
+        <th>
+            
+        Şehir Ismi
+         </th>
+       
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Cities)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CITY_NAME)
+            </td>
+           
+            <td>
+                <a href="@Url.Action("Duzenle", new { id= item.CITY_ID })" class="btn btn-success">Duzenle</a>
+
+                <a href="@Url.Action("Sil", new {id = item.CITY_ID })" class="btn btn-danger">Sil</a>
+
+            </td>
+        </tr>
+    }
+
+</table>
